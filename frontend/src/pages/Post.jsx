@@ -2,13 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Editor } from "primereact/editor";
 
 function Post() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
-  const [status,setStatus]=useState("");
+  const [status, setStatus] = useState("");
   // const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -27,9 +28,9 @@ function Post() {
     });
 
   const handleSubmit = () => {
-    console.log(title, body, category, image,status);
+    console.log(title, body, category, image, status);
 
-    if (title !== "" && body !== "" && category !== "" && image !== "null" && status!=="") {
+    if (title !== "" && body !== "" && category !== "" && image !== "null" && status !== "") {
       // create post
       setLoading(true);
       axios.post("http://localhost:4001/Post/create", {
@@ -37,7 +38,7 @@ function Post() {
         body: body,
         category: category,
         image: image,
-        status:status
+        status: status
 
       }, {
         headers: {
@@ -70,73 +71,71 @@ function Post() {
 
   return (
     <>
-     <h2>Create Post</h2>
+      <h2>Create Post</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
       >
-        <div className="mb-3">
-          <label id="title">Post Title:</label>
-          <input
-            type="text"
-            id="title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            className="form-control"
-            value={title}
-            placeholder="Post title"
-          />
-        </div>
-        <div className="mb-3">
-          <label id="body">Body:</label>
-          <input
-            type="text"
-            id="body"
-            onChange={(e) => {
-              setBody(e.target.value);
-            }}
-            className="form-control"
-            value={body}
-            placeholder="body"
-          />
-        </div>
-        <div className="mb-3">
-          <label id="category">Category:</label>
-          <select onChange={(e) => {
-            setCategory(e.target.value);
-          }} className="form-control" value={category} id="category">
-            <option value="mobile">Mobile</option>
-            <option value="computer">Computer</option>
-          </select>
-        </div>
+        <div className="flex justify-content-around">
+          <div className="mb-3">
+            <label id="title">Post Title:</label>
+            <input
+              type="text"
+              id="title"
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+              className="form-control"
+              value={title}
+              placeholder="Post title"
+            />
+          </div>
 
-        <div className="mb-3">
-          <label id="image" className="text-start d-block font-bold">Image:</label>
-          <input
-            type="file"
-            id="image"
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
-            className="form-control"
-          />
-          {/* {(errors.image) ? <div className="alert alert-danger py-1 mt-1"> {errors.image}</div> : null} */}
-        </div>
-        <div className="mb-3">
-          <label id="status">Stautus:</label>
-          <select onChange={(e) => {
-            setStatus(e.target.value);
-          }} className="form-control" value={status} id="status">
-            <option value="draft">Draft</option>
-            <option value="publish">Publish</option>
-          </select>
-        </div>
 
+
+          <div className="mb-3">
+            <label id="category">Category:</label>
+            <select onChange={(e) => {
+              setCategory(e.target.value);
+            }} className="form-control" value={category} id="category">
+              <option value="mobile">Mobile</option>
+              <option value="computer">Computer</option>
+            </select>
+          </div>
+
+
+          <div className="mb-3">
+            <label id="image" className="text-start d-block font-bold">Image:</label>
+            <input
+              type="file"
+              id="image"
+              onChange={(e) => {
+                setImage(e.target.files[0]);
+              }}
+              className="form-control"
+            />
+            {/* {(errors.image) ? <div className="alert alert-danger py-1 mt-1"> {errors.image}</div> : null} */}
+          </div>
+
+          <div className="mb-3">
+            <label id="status">Stautus:</label>
+            <select onChange={(e) => {
+              setStatus(e.target.value);
+            }} className="form-control" value={status} id="status">
+              <option value="draft">Draft</option>
+              <option value="publish">Publish</option>
+            </select>
+          </div>
+
+
+        </div>
+        <div className="card p-0">
+          <Editor value={body} onTextChange={(e) => setBody(e.htmlValue)} style={{ height: '320px' }} />
+        </div>
 
         <button
-          className="btn btn-warning"
+          className="btn btn-warning p-2 m-2 round"
           type="button"
           onClick={handleSubmit}
           disabled={loading === true ? true : ""}
