@@ -51,7 +51,7 @@ const create = async (req, res) => {
 
 // getall post
 const getall = async (req, res) => {
-
+    
     try {
         const post = await PostModel.find({});
         return res.json({
@@ -68,7 +68,7 @@ const getall = async (req, res) => {
     }
 }
 const getsingle = async (req, res) => {
-const id=req.params.id
+const id=req.params.id;
     try {
         const post = await PostModel.findById(id);
         return res.json({

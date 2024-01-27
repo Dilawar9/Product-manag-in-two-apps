@@ -22,9 +22,10 @@ function Home() {
                         <NavLink className="no-underline m-3" to="/post"><li>Post</li></NavLink>
                         {/* <NavLink className="no-underline m-3" to="/category"><li>Category</li></NavLink> */}
                         <NavLink className="no-underline m-3" to="/comment"><li>Comments</li></NavLink>
+                        <NavLink className="no-underline m-3" to="/category"><li>Category</li></NavLink>
                     </ul>
                     <div>
-                        <NavLink className="no-underline" to="/logout">Logout</NavLink>
+                        <NavLink className="no-underline" to="/">Logout</NavLink>
 
                     </div>
                 </div>

@@ -4,10 +4,8 @@ var newshema = new mongoose.Schema({
     // autherId:
     title: String,
     body: String,
-    category:{
-        type: String,
-        enum: ["mobile", "computer"],
-    } ,
+    exerpt:String,
+    category: String,
     image: String,
     status: {
         type: String,

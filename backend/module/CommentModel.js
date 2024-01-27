@@ -1,19 +1,17 @@
-var mongoose=require("mongoose");
+const mongoose=require('mongoose')
+const schema = new mongoose.Schema({
+    postid:String,
 
-var commentscheema=new mongoose.Schema({
-   
-    comment:{
-        type: String,
-        required: [true, "Comment is required"]
+    comment:String,
+    status:{
+        type:String,
+        default:"pending",
+        enum:['approved',"pending"]
     },
-    postid:{
-        type: String,
-        required: [true, "Post id  is required"]
-    }
-    
-},{ timestamps: true });
+   
+
+},{timestamps:true});
 
 
-const CommentModel= mongoose.model('comment',commentscheema);
-
-module.exports=CommentModel;
+const CommentModle = mongoose.model('comment', schema);
+module.exports=CommentModle;

@@ -27,6 +27,7 @@ const CommentRoute=require("./route/CommentRoute");
 app.use("/User", UserRoute);
 app.use("/Post",PostRoute);
 app.use("/Comment",CommentRoute);
+app.use("/category",CategoryRoute);
 
 
 

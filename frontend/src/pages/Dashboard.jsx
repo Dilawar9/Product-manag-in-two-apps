@@ -57,7 +57,7 @@ function Dashboard() {
   }, []);
   
   const handleEdit = (id) => {
-    navigator(`/edit/${id}`)  
+    // navigator(`/edit/${id}`)  
   }
   
   const imageBodyTemplate = (product) => {
@@ -83,10 +83,10 @@ function Dashboard() {
       <div>
         <DataTable value={products} filters={filters} globalFilterFields={['title', 'price']} header={header} showGridlines={true} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem', backgroundColor: '#9ebdfc' }}>
           <Column field="_id" header="ID" sortable ></Column>
+          <Column field="title" filter  header="Title" sortable ></Column>
           <Column field="image" header="Image" body={imageBodyTemplate}></Column>
-          <Column field="title" filter  header="Name" sortable ></Column>
           <Column field="category" header="Category"></Column>
-          <Column field="status" filter header="status" sortable></Column>
+          <Column field="status" filter header="Status" sortable></Column>
           <Column field="action" header="Actions" body={actionBodyTemplate}></Column>
         </DataTable>
       </div>

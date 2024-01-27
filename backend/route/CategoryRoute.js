@@ -5,8 +5,9 @@ const upload = multer({ dest: 'uploads/' })
 const CategoryContorler=require("../controler/CategoryControler");
 
 
-router.post("/create", upload.single('image'),CategoryContorler.creat);
-router.get("/getall",  CategoryContorler.getall);
-
+// router.post("/create", upload.single('image'),CategoryContorler.creat);
+// router.get("/getall",  CategoryContorler.getall);
+router.post("/create",CategoryContorler.mobileCategory);
+router.get("/getall",CategoryContorler.softwareCategory)
 
 module.exports=router;

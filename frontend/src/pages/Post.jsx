@@ -1,18 +1,24 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "primereact/editor";
 
 function Post() {
   const [title, setTitle] = useState("");
+  const [exerpt, setExerpt] = useState("");
+  const[category,setCategory]=useState("");
   const [body, setBody] = useState("");
-  const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
   const [status, setStatus] = useState("");
   // const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [cat,setCat]=useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:400/post/getall").then((res) => {
+      setCat(res.data);
+    })
+  }, [])
   const navegate = useNavigate();
 
   const successMsg = () =>
@@ -24,21 +30,23 @@ function Post() {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light"
+      theme: "dark"
     });
 
   const handleSubmit = () => {
-    console.log(title, body, category, image, status);
+    console.log(title, body,  image, status);
 
-    if (title !== "" && body !== "" && category !== "" && image !== "null" && status !== "") {
+    if (title !== "" && exerpt !== "" && category!=="" && body !== "" &&  image !== "null" && status !== "") {
       // create post
       setLoading(true);
       axios.post("http://localhost:4001/Post/create", {
         title: title,
+        exerpt: exerpt,
+        category:category,
         body: body,
-        category: category,
-        image: image,
-        status: status
+        status: status,
+        image: image
+        
 
       }, {
         headers: {
@@ -54,8 +62,9 @@ function Post() {
               navegate("/dashboard")
             }, 2000)
             setTitle("");
-            setBody("");
+            setExerpt("");
             setCategory("");
+            setBody("");
             setImage(null);
             setStatus("");
           }
@@ -92,19 +101,41 @@ function Post() {
             />
           </div>
 
-
-
-          <div className="mb-3">
-            <label id="category">Category:</label>
-            <select onChange={(e) => {
-              setCategory(e.target.value);
-            }} className="form-control" value={category} id="category">
-              <option value="mobile">Mobile</option>
-              <option value="computer">Computer</option>
-            </select>
+          <div className="flex justify-content-around">
+            <div className="mb-3">
+              <label id="exerpt">Exerpt:</label>
+              <input
+                type="text"
+                id="exerpt"
+                onChange={(e) => {
+                  setExerpt(e.target.value);
+                }}
+                className="form-control"
+                value={exerpt}
+                placeholder="Post exerpt"
+              />
+            </div>
           </div>
-
-
+          <div className="flex justify-content-around">
+            <div className="mb-3">
+              <label id="category">Category:</label>
+              <input
+                type="text"
+                id="category"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                className="form-control"
+                value={cat}
+                placeholder="Post category"
+              />
+                   {
+                  cat.map((cat) => {
+                    return <option value={cat.name}>{cat.name}</option>
+                  })
+                }
+            </div>
+          </div>
           <div className="mb-3">
             <label id="image" className="text-start d-block font-bold">Image:</label>
             <input
@@ -130,6 +161,8 @@ function Post() {
 
 
         </div>
+
+
         <div className="card p-0">
           <Editor value={body} onTextChange={(e) => setBody(e.htmlValue)} style={{ height: '320px' }} />
         </div>
