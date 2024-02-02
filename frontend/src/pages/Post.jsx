@@ -13,12 +13,14 @@ function Post() {
   const [status, setStatus] = useState("");
   // const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [cat,setCat]=useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:400/post/getall").then((res) => {
-      setCat(res.data);
-    })
-  }, [])
+  const [cate,setCate]=useState([]);
+
+
+  // useEffect(() => {
+  //   axios.get("http://localhost:4001/post/getall").then((res) => {
+  //     setCate(res.data);
+  //   })
+  // }, [])
   const navegate = useNavigate();
 
   const successMsg = () =>
@@ -116,26 +118,17 @@ function Post() {
               />
             </div>
           </div>
-          <div className="flex justify-content-around">
-            <div className="mb-3">
-              <label id="category">Category:</label>
-              <input
-                type="text"
-                id="category"
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-                className="form-control"
-                value={cat}
-                placeholder="Post category"
-              />
-                   {
-                  cat.map((cat) => {
+          <div className="field ">
+              <label htmlFor="state">Catagory</label>
+              <select id="state" onChange={(e) => { setCategory(e.target.value) }} >
+                {
+                  cate.map((cat) => {
                     return <option value={cat.name}>{cat.name}</option>
                   })
                 }
+
+              </select>
             </div>
-          </div>
           <div className="mb-3">
             <label id="image" className="text-start d-block font-bold">Image:</label>
             <input
