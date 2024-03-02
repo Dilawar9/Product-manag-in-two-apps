@@ -16,11 +16,13 @@ function Post() {
   const [cate,setCate]=useState([]);
 
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:4001/post/getall").then((res) => {
-  //     setCate(res.data);
-  //   })
-  // }, [])
+  useEffect(() => {
+    axios.get("http://localhost:4001/category/getall").then((res) => {
+      console.log(res.data);
+      setCate(res.data.category);
+    })
+  }, [])
+
   const navegate = useNavigate();
 
   const successMsg = () =>
@@ -120,10 +122,11 @@ function Post() {
           </div>
           <div className="field ">
               <label htmlFor="state">Catagory</label>
-              <select id="state" onChange={(e) => { setCategory(e.target.value) }} >
+              <select id="state" value={category} onChange={(e) => { setCategory(e.target.value) }} >
+                <option>select</option>
                 {
                   cate.map((cat) => {
-                    return <option value={cat.name}>{cat.name}</option>
+                    return <option>{cat.category}</option>
                   })
                 }
 
@@ -147,6 +150,7 @@ function Post() {
             <select onChange={(e) => {
               setStatus(e.target.value);
             }} className="form-control" value={status} id="status">
+              <option >select</option>
               <option value="draft">Draft</option>
               <option value="publish">Publish</option>
             </select>

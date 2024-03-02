@@ -52,6 +52,25 @@ const getall = async (req, res) => {
     }
 }
 
+// delete categor
+
+const deletecategory = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await PostModel.findByIdAndDelete(id);
+        return res.status(200).json({
+            status: true,
+            message: "Category succesfully deleted"
+        })
+    } catch (error) {
+        return res.status(404).json({
+            status: false,
+            message: "something went wrong"
+        })
+    }
+};
+
+
 // const mobileCategory = async (req, res) => {
 
 //     console.log("sdfsdf")
@@ -88,6 +107,8 @@ const getall = async (req, res) => {
 module.exports = {
     creat,
     getall,
+    deletecategory
+
     // mobileCategory,
     // softwareCategory
 }

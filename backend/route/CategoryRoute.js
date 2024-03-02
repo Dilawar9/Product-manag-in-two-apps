@@ -7,6 +7,7 @@ const CategoryContorler=require("../controler/CategoryControler");
 
 router.post("/creat",CategoryContorler.creat);
 router.get("/getall",  CategoryContorler.getall);
+router.get("/delete:id",  CategoryContorler.deletecategory);
 // router.post("/catetory",CategoryContorler.mobileCategory);
 // router.get("/getal",CategoryContorler.softwareCategory)
 

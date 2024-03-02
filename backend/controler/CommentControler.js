@@ -86,7 +86,7 @@ const update= async (req, res) => {
         return res.status(200).json({
             status: true,
             updatedcomment: updatedcomment,
-            message: "product succesfully updated"
+            message: "Comment succesfully updated"
         })
     } catch (error) {
         if (error.name === 'ValidationError') {
